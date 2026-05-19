@@ -351,7 +351,7 @@ Be warm, readable, and useful — not clinical or robotic.`;
     try {
       const response = await fetch('https://api.anthropic.com/v1/messages', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'x-api-key':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' },
         body: JSON.stringify({
           model: 'claude-sonnet-4-20250514',
           max_tokens: 1000,
