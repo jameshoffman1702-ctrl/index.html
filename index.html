@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -357,37 +358,10 @@
 </div>
 
 <script>
-  // On load, check if key exists
+  // On load, go straight to input
   window.onload = function() {
-    const key = localStorage.getItem('anthropic_key');
-    if (key) {
-      document.getElementById('input-section').style.display = 'block';
-      document.getElementById('key-section').classList.remove('visible');
-    } else {
-      document.getElementById('input-section').style.display = 'none';
-      document.getElementById('key-section').classList.add('visible');
-    }
-  };
-
-  function saveKey() {
-    const key = document.getElementById('api-key-input').value.trim();
-    const errorEl = document.getElementById('key-error-msg');
-    if (!key.startsWith('sk-ant-')) {
-      errorEl.textContent = 'That doesn\'t look right — your key should start with sk-ant-';
-      errorEl.classList.add('visible');
-      return;
-    }
-    localStorage.setItem('anthropic_key', key);
-    document.getElementById('key-section').classList.remove('visible');
     document.getElementById('input-section').style.display = 'block';
-  }
-
-  function changeKey() {
-    localStorage.removeItem('anthropic_key');
-    document.getElementById('input-section').style.display = 'none';
-    document.getElementById('key-section').classList.add('visible');
-    document.getElementById('api-key-input').value = '';
-  }
+  };
 
   async function polishNotes() {
     const notes = document.getElementById('notes').value.trim();
@@ -430,12 +404,12 @@ Be warm, readable, and useful — not clinical or robotic.`;
 
     const userMessage = `${contextLine ? contextLine + '\n\n' : ''}Raw notes:\n${notes}`;
 
-    const apiKey = localStorage.getItem('anthropic_key');
+    const apiKey = null; // key is handled by Val Town proxy
 
     try {
-      const response = await fetch('https://api.anthropic.com/v1/messages', {
+      const response = await fetch('https://jameshoffman1702ctrl--9c291974539311f188baee650bb23af1.web.val.run/', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           model: 'claude-sonnet-4-20250514',
           max_tokens: 1000,
